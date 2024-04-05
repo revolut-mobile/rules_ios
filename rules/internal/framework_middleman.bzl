@@ -7,7 +7,6 @@ load(
     "new_iosframeworkbundleinfo",
 )
 load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
-load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load("@bazel_skylib//rules:common_settings.bzl", "BuildSettingInfo")
 load(
     "@build_bazel_rules_apple//apple/internal:partials.bzl",
@@ -166,7 +165,7 @@ framework_middleman = rule(
     toolchains = ["@bazel_tools//tools/cpp:toolchain_type"],
     attrs = {
         "framework_deps": attr.label_list(
-            cfg = transition_support.apple_platform_split_transition,
+            cfg = transition_support.split_transition,
             mandatory = True,
             doc =
                 """Deps that may contain frameworks
@@ -198,7 +197,8 @@ framework_middleman = rule(
         ),
         "_allowlist_function_transition": attr.label(
             default = "@bazel_tools//tools/allowlists/function_transition_allowlist",
-            doc = "Needed to allow this rule to have an incoming edge configuration transition.",
+            doc = """Needed to allow this rule to have an incoming edge configuration transition.
+""",
         ),
     },
     doc = """
@@ -308,7 +308,7 @@ dep_middleman = rule(
     implementation = _dep_middleman,
     attrs = {
         "deps": attr.label_list(
-            cfg = transition_support.apple_platform_split_transition,
+            cfg = transition_support.split_transition,
             mandatory = True,
             doc =
                 """Deps that may contain frameworks
@@ -328,7 +328,8 @@ dep_middleman = rule(
         ),
         "_allowlist_function_transition": attr.label(
             default = "@bazel_tools//tools/allowlists/function_transition_allowlist",
-            doc = "Needed to allow this rule to have an incoming edge configuration transition.",
+            doc = """Needed to allow this rule to have an incoming edge configuration transition.
+""",
         ),
     },
     doc = """

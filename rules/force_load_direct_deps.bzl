@@ -13,7 +13,6 @@ def _force_load_direct_deps_impl(ctx):
             avoid_deps.extend(dep[AvoidDepsInfo].libraries)
 
     avoid_libraries = {}
-
     _is_bazel_7 = not hasattr(apple_common, "apple_crosstool_transition")
     if _is_bazel_7:
         for dep in avoid_deps:
@@ -77,7 +76,7 @@ force_load_direct_deps = rule(
     implementation = _force_load_direct_deps_impl,
     attrs = {
         "deps": attr.label_list(
-            cfg = transition_support.apple_platform_split_transition,
+            cfg = transition_support.split_transition,
             mandatory = True,
             doc =
                 "Deps",
