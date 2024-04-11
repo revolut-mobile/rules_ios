@@ -27,12 +27,6 @@ GLOBAL_INDEX_STORE_PATH = "bazel-out/_global_index_store"
 
 _MANUAL = ["manual"]
 
-_SWIFT_LIBRARY_KWARGS = [
-    "always_include_developer_search_paths",
-    "package_name",
-    "plugins",
-]
-
 def _private_headers_impl(ctx):
     return [
         PrivateHeadersInfo(
@@ -585,10 +579,7 @@ def apple_library(
     defines = kwargs.pop("defines", [])
     testonly = kwargs.pop("testonly", False)
     features = kwargs.pop("features", [])
-
-    # Collect the swift_library related kwargs, these are typically only set when provided to allow
-    # for wider compatibility with rule_swift versions.
-    swift_kwargs = {arg: kwargs.pop(arg) for arg in _SWIFT_LIBRARY_KWARGS if arg in kwargs}
+    plugins = kwargs.pop("plugins", None)
 
     for (k, v) in {"momc_copts": momc_copts, "mapc_copts": mapc_copts, "ibtool_copts": ibtool_copts}.items():
         if v:
