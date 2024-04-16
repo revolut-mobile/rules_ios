@@ -580,7 +580,6 @@ def apple_library(
     testonly = kwargs.pop("testonly", False)
     features = kwargs.pop("features", [])
     plugins = kwargs.pop("plugins", None)
-    always_include_developer_search_paths = kwargs.pop("always_include_developer_search_paths", None)
 
     for (k, v) in {"momc_copts": momc_copts, "mapc_copts": mapc_copts, "ibtool_copts": ibtool_copts}.items():
         if v:
